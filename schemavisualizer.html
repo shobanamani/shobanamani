@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>schema visualizer</title>
+div{
+Table BusinessEntityContact {
+  BusinessEntityID int
+  PersonID int
+  ContactTypeID int
+  rowguid varchar
+  ModifiedData varchar
+}
+Table ContactType{
+  ContactTypeID int
+  Name varchar
+  ModifiedData varchar
+}
+Table BusinessEntity{
+  BusinessEntityID int
+  rowguid varchar
+  ModifiedData varchar
+}
+Table BusinessEntityAddress {
+  BusinessEntityID int
+  AddressID int
+  AddressTypeID int
+  rowguid varchar
+  ModifiedData varchar
+}
+Table AddressType{
+  AddressTypeID int
+  Name varchar
+  rowguid varchar
+  ModifiedData varchar
+}
+
+
+Table Address{
+  AddressID int
+  AddressLine1 varchar
+  AddressLine2 varchar
+  City varchar
+  StateProvinceID int
+  PostalCode varchar
+  SpatialLocation varchar
+  rowguid varchar
+  ModifiedData varchar
+}
+
+Table StateProvince {
+  StateProvinceID int
+  StateProvinceCode int
+  CountryRegionCode int
+  isOnlystateProvinceFlag varchar
+  name varchar
+  TerritoryID int
+  rowguid varchar
+  ModifiedData varchar
+ }
+
+
+
+Table CountryRegion {
+  CountryRegionCode int  
+  Name varchar
+  ModifiedData varchar
+}
+
+
+Table PersonPhone {
+  BusinessEntityID int [pk] 
+  PhoneNumber int [not null, unique]
+  PhoneNumberTypeID int
+  ModifiedData varchar 
+}
+
+
+Table Person {
+  BusinessEntityID int [pk]
+  PersonType varchar
+  NameStyle varchar
+  Title varchar
+  FirstName varchar
+  LastName varchar
+  Suffix varchar
+  EmailPromotion varchar
+  AdditionalContactinfo varchar
+  Demographics varchar
+  rowguid varchar
+  ModifiedData varchar
+}
+
+Table Password {
+  BusinessEntityID int [pk]
+  PasswordHash varchar 
+  PasswordSait varchar
+  rowguid varchar
+  ModifiedData varchar
+}
+
+Table PhoneNumberType {
+  PhoneNumberTypeID int [pk]
+  Name varchar
+  ModifiedData varchar
+  
+}
+Table EmailAddress {
+  BusinessEntityID int
+  EmailAddressID int
+  EmailAddress varchar
+  rowguid varchar
+  ModifiedData varchar
+  
+}
+</div>
+
+Ref: BusinessEntityContact.ContactTypeID > Person.LastName 
+Ref: BusinessEntityContact.ModifiedData > ContactType.ContactTypeID
+Ref: BusinessEntityContact.ModifiedData > BusinessEntity.BusinessEntityID
+Ref:BusinessEntity.ModifiedData < BusinessEntityAddress.BusinessEntityID
+Ref: BusinessEntity.rowguid > Address.PostalCode
+Ref: BusinessEntityAddress.ModifiedData > Address.StateProvinceID
+Ref:BusinessEntityAddress.ModifiedData > AddressType.AddressTypeID
+Ref:Address.ModifiedData > StateProvince.StateProvinceID
+Ref: StateProvince.ModifiedData > CountryRegion.Name
+Ref: Address.PostalCode > Person.LastName
+Ref: PersonPhone.ModifiedData > Person.PersonType
+Ref:Person.ModifiedData > Password.rowguid
+Ref:"Person"."EmailPromotion" <> "EmailAddress"."EmailAddress"
+Ref:"PersonPhone"."BusinessEntityID" <> "PhoneNumberType"."ModifiedData"
+</html>
+
+

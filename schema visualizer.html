@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>schema visualizer</title>
+    <link rel="stylesheet" href="../assets/css/style.css"/> 
+  </head>
+  <body>
+      <h1 class="title">schema visualizer </h1>
+      <p id="currentTime"></p>
+      <script src="script.js">
+        
+      var Business entity ContactName = [
+        {
+          key: "Products",
+          items: [{ name: "BusinessentityID", iskey: true, figure: "Decision" },
+          { name: "BusinessentityID Name", iskey: false, figure: "Hexagon" },
+          { name: "SupplierID", iskey: false, figure: "Decision"},
+          { name: "CategoryID", iskey: false, figure: "Decision" }]
+        },
+        {
+          key: "contecttype",
+          items: [{ name: "contacttypeID", iskey: true, figure: "Decision" },
+          { name: "ContactNameName", iskey: false, figure: "Hexagon" },
+          { name: "ModifiedData", iskey: false, figure: "Hexagon"},
+          { name: "Address", iskey: false, figure: "Hexagon"}]
+        },
+        {
+          key: "address type",
+          items: [{ name: "addressID", iskey: true, figure: "Decision", color: colors.red },
+          { name: "addressname", iskey: false, figure: "Hexagon", color: colors.blue },
+          { name: "rowguid", iskey: false, figure: "Hexagon", color: colors.blue },
+          { name: "ModifiedData", iskey: false, figure: "TriangleUp", color: colors.pink }]
+        },
+        {
+          key: "Order Details",
+          items: [{ name: "OrderID", iskey: true, figure: "Decision", color: colors.red },
+          { name: "ProductID", iskey: true, figure: "Decision", color: colors.red },
+          { name: "UnitPrice", iskey: false, figure: "Circle", color: colors.green },
+          { name: "Quantity", iskey: false, figure: "Circle", color: colors.green },
+          { name: "Discount", iskey: false, figure: "Circle", color: colors.green }]
+        },
+      ];
+      var linkDataArray = [
+        { from: "Products", to: "Suppliers", text: "0..N", toText: "1" },
+        { from: "Products", to: "Categories", text: "0..N", toText: "1" },
+        { from: "Order Details", to: "Products", text: "0..N", toText: "1" }
+      ];
+      myDiagram.model = new go.GraphLinksModel(
+        {
+          copiesArrays: true,
+          copiesArrayObjects: true,
+          nodeDataArray: nodeDataArray,
+          linkDataArray: linkDataArray
+        });
+    }
+    
+      </script>
+  </body>
+</html>
